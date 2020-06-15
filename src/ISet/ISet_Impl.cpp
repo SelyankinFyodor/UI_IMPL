@@ -45,7 +45,7 @@ namespace{
             return RESULT_CODE::WRONG_ARGUMENT;
         }
 
-        if (pVector->getDim()!=_dim){
+        if (_dim != 0 && pVector->getDim() != _dim){
             return RESULT_CODE::WRONG_DIM;
         }
 
@@ -59,7 +59,7 @@ namespace{
                 return RESULT_CODE::OUT_OF_MEMORY;
             }
             _data.push_back(clone);
-
+            _dim = clone->getDim();
             return RESULT_CODE::SUCCESS;
         }
 
