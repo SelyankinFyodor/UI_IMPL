@@ -16,7 +16,7 @@ IVector * IVector::createVector(size_t dim, double *pData, ILogger *pLogger) {
 
     if (!dim){
         if (pLogger){
-            pLogger->log("In IVector::createVector - get 0 as dim", RESULT_CODE::WRONG_ARGUMENT);
+            pLogger->log("In IVector::createVector - get 0 as dim", RESULT_CODE::WRONG_DIM);
         }
         return nullptr;
     }
@@ -60,7 +60,7 @@ IVector *IVector::add(IVector const *pOperand1, IVector const *pOperand2, ILogge
 
     if (pOperand1->getDim() != pOperand2->getDim()){
         if (pLogger) {
-            pLogger->log("In IVector::add - mismatch of operand size", RESULT_CODE::WRONG_ARGUMENT);
+            pLogger->log("In IVector::add - mismatch of operand size", RESULT_CODE::WRONG_DIM);
         }
         return nullptr;
     }
@@ -108,7 +108,7 @@ IVector *IVector::sub(IVector const *pOperand1, IVector const *pOperand2, ILogge
 
     if (pOperand1->getDim() != pOperand2->getDim()){
         if (pLogger) {
-            pLogger->log("In IVector::sub - mismatch of operand size", RESULT_CODE::WRONG_ARGUMENT);
+            pLogger->log("In IVector::sub - mismatch of operand dimension", RESULT_CODE::WRONG_DIM);
         }
         return nullptr;
     }
@@ -190,7 +190,7 @@ double IVector::mul(IVector const *pOperand1, IVector const *pOperand2, ILogger 
 
     if (pOperand1->getDim() != pOperand2->getDim()){
         if (pLogger) {
-            pLogger->log("In IVector::mull vector - mismatch of operand size", RESULT_CODE::WRONG_ARGUMENT);
+            pLogger->log("In IVector::mull vector - mismatch of operand size", RESULT_CODE::WRONG_DIM);
         }
         return 0.0;
     }
@@ -210,6 +210,7 @@ IVector::equals(IVector const *pOperand1, IVector const *pOperand2, IVector::NOR
         if (pLogger){
             pLogger->log("In IVector::equals - first operand is nullptr", RESULT_CODE::WRONG_ARGUMENT);
         }
+
         return RESULT_CODE::WRONG_ARGUMENT;
     }
 
@@ -217,31 +218,42 @@ IVector::equals(IVector const *pOperand1, IVector const *pOperand2, IVector::NOR
         if (pLogger){
             pLogger->log("In IVector::equals - second operand is nullptr", RESULT_CODE::WRONG_ARGUMENT);
         }
+
         return RESULT_CODE::WRONG_ARGUMENT;
     }
 
     if (pOperand1->getDim() != pOperand2->getDim()){
         if (pLogger){
-            pLogger->log("In IVector::equals - mismatch of operand size", RESULT_CODE::WRONG_ARGUMENT);
+            pLogger->log("In IVector::equals - mismatch of operand dimensions", RESULT_CODE::WRONG_DIM);
         }
+
         return RESULT_CODE::WRONG_ARGUMENT;
     }
 
-    IVector *d = IVector::sub(pOperand1, pOperand2, pLogger);
-    if (!d){
+    IVector *diff = IVector::sub(pOperand1, pOperand2, pLogger);
+    if (!diff){
         if (pLogger){
             pLogger->log("In IVector::equals - memory allocation problems", RESULT_CODE::OUT_OF_MEMORY);
         }
+
         return RESULT_CODE::OUT_OF_MEMORY;
     }
 
-    *result = fabs(d->norm(norm)) < tolerance;
+    double diff_norm = fabs(diff->norm(norm));
+    if (std::isnan(diff_norm)){
+        delete diff;
+        if (pLogger){
+            pLogger->log("In IVector::equals - error while calculating vector's norm", RESULT_CODE::CALCULATION_ERROR);
+        }
 
-    delete d;
+        return RESULT_CODE::CALCULATION_ERROR;
+    }
+
+    *result = diff_norm < fabs(tolerance);
+    delete diff;
 
     return RESULT_CODE::SUCCESS;
 } // IVector::equals
 
 IVector::~IVector()
 = default;
-

@@ -4,7 +4,9 @@
 #define _EXPORTING
 
 #include <cmath>
+#include <iostream>
 #include <cstring>
+#include <cmath>
 #include <new>
 #include "../../include/IVector.h"
 
@@ -72,7 +74,7 @@ namespace {
     }
 
     double IVector_Impl::norm(IVector::NORM norm) const {
-        double result = 0;
+        double result = NAN;
 
         switch (norm){
             case NORM::NORM_1:
