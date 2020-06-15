@@ -7,8 +7,9 @@
 
 int main(){
     auto *a = new double[1];
-    std::cout << "dim";
+    std::cout << "dim 2";
     a[0]=1;
     IVector*va = IVector::createVector(1, a, nullptr);
     std::cout << "dim"<< va->getDim();
+    delete va;
 }
