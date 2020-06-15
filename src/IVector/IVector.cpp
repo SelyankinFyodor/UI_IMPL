@@ -222,6 +222,10 @@ IVector::equals(IVector const *pOperand1, IVector const *pOperand2, IVector::NOR
         return RESULT_CODE::WRONG_ARGUMENT;
     }
 
+    if (tolerance < 0){
+        return RESULT_CODE::WRONG_ARGUMENT;
+    }
+
     if (pOperand1->getDim() != pOperand2->getDim()){
         if (pLogger){
             pLogger->log("In IVector::equals - mismatch of operand dimensions", RESULT_CODE::WRONG_DIM);
@@ -249,7 +253,7 @@ IVector::equals(IVector const *pOperand1, IVector const *pOperand2, IVector::NOR
         return RESULT_CODE::CALCULATION_ERROR;
     }
 
-    *result = diff_norm < fabs(tolerance);
+    *result = diff_norm < tolerance;
     delete diff;
 
     return RESULT_CODE::SUCCESS;
