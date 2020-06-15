@@ -1,7 +1,9 @@
 #ifndef ISET_H
 #define ISET_H
+
 #include "ILogger.h"
 #include "IVector.h"
+
 class ISet {
 public:
 	static ISet* createSet(ILogger* pLogger);
@@ -17,7 +19,7 @@ public:
 	virtual ISet* clone()const = 0;
 	static ISet* add(ISet const* pOperand1, ISet const* pOperand2, IVector::NORM norm, double tolerance, ILogger* pLogger);
 	static ISet* intersect(ISet const* pOperand1, ISet const* pOperand2, IVector::NORM norm, double tolerance, ILogger* pLogger);
-        static ISet* sub(ISet const* pOperand1, ISet const* pOperand2, IVector::NORM norm, double tolerance, ILogger* pLogger);
+    static ISet* sub(ISet const* pOperand1, ISet const* pOperand2, IVector::NORM norm, double tolerance, ILogger* pLogger);
 	static ISet* symSub(ISet const* pOperand1, ISet const* pOperand2, IVector::NORM norm, double tolerance, ILogger* pLogger);
 protected:
 	ISet() = default;
