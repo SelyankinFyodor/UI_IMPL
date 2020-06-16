@@ -2,16 +2,16 @@
 #include <cmath>
 #include "vector-test-main.h"
 
-bool sub1(){
+bool sub1(ILogger *logger){
 
     const size_t dim = 2;
     const double eps = 1e-7;
     double a[dim] = {1, 2};
     double b[dim] = {3, 4};
 
-    IVector *va = IVector::createVector(dim, a, nullptr);
-    IVector *vb = IVector::createVector(dim, b, nullptr);
-    IVector *sub = IVector::sub(va, vb, nullptr);
+    IVector *va = IVector::createVector(dim, a, logger);
+    IVector *vb = IVector::createVector(dim, b, logger);
+    IVector *sub = IVector::sub(va, vb, logger);
     if (sub->getDim() != dim){
         std::cout << "add-1: result dimension error\n";
         delete va;
@@ -34,15 +34,15 @@ bool sub1(){
     return true;
 }
 
-bool sub2() {
+bool sub2(ILogger *logger) {
     const size_t dim1 = 2;
     const size_t dim2 = 3;
     double a[dim1] = {1, 2};
     double b[dim2] = {3, 4, 6};
 
-    IVector *va = IVector::createVector(dim1, a, nullptr);
-    IVector *vb = IVector::createVector(dim2, b, nullptr);
-    IVector *sub = IVector::sub(va, vb, nullptr);
+    IVector *va = IVector::createVector(dim1, a, logger);
+    IVector *vb = IVector::createVector(dim2, b, logger);
+    IVector *sub = IVector::sub(va, vb, logger);
     if (sub != nullptr){
         std::cout << "sub-2: mismatch dimensional\n";
         delete va;
@@ -57,13 +57,13 @@ bool sub2() {
     return true;
 }
 
-bool sub3(){
+bool sub3(ILogger *logger){
     const size_t dim = 3;
     double a[dim] = {1, 2, 3};
 
-    IVector *va = IVector::createVector(dim, a, nullptr);
+    IVector *va = IVector::createVector(dim, a, logger);
     IVector *vb = nullptr;
-    IVector *sum = IVector::add(va, nullptr, nullptr);
+    IVector *sum = IVector::add(va, nullptr, logger);
     if (sum != nullptr){
         std::cout << "sub-3: sum mismatch dimensional vectors\n";
         delete va;

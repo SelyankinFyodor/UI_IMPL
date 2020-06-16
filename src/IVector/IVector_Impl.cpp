@@ -50,12 +50,13 @@ namespace {
             return nullptr;
         }
 
-        memcpy(_data, data, _dim * sizeof(double));
+        memcpy(data, _data, _dim * sizeof(double));
 
         return new (std::nothrow)IVector_Impl(_dim, data);
     }
 
     double IVector_Impl::getCoord(size_t index) const {
+
         return (index >= _dim || !_data) ? 0.0 : _data[index];
     }
 
@@ -74,7 +75,7 @@ namespace {
     }
 
     double IVector_Impl::norm(IVector::NORM norm) const {
-        double result = NAN;
+        double result = 0;
 
         switch (norm){
             case NORM::NORM_1:
@@ -86,16 +87,18 @@ namespace {
                 for (size_t i = 0; i < _dim; i++){
                     result += _data[i] * _data[i];
                 }
+                result = sqrt(result);
                 break;
             case NORM::NORM_INF:
-                result = _data[0];
+                result = fabs(_data[0]);
                 for (size_t i = 0; i < _dim; i++){
                     if (result < _data[i]){
-                        result = _data[i];
+                        result = fabs(_data[i]);
                     }
                 }
                 break;
             default:
+                result = NAN;
                 break;
         }
 

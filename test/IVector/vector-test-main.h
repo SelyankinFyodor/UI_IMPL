@@ -3,28 +3,28 @@
 
 #include "IVector.h"
 
-bool add1();
+bool add1(ILogger *logger);
 
-bool add2();
+bool add2(ILogger *logger);
 
-bool add3();
+bool add3(ILogger *logger);
 
-bool sub1();
+bool sub1(ILogger *logger);
 
-bool sub2();
+bool sub2(ILogger *logger);
 
-bool sub3();
+bool sub3(ILogger *logger);
 
-bool clone1();
+bool clone1(ILogger *logger);
 
-bool mulscalar1();
+bool mulscalar1(ILogger *logger);
 
-bool mulscalar2();
+bool mulscalar2(ILogger *logger);
 
-bool mulvector1();
+bool mulvector1(ILogger *logger);
 
-bool mulvector2();
+bool mulvector2(ILogger *logger);
 
-bool mulvector3();
+bool mulvector3(ILogger *logger);
 
 #endif //UI_IMPL_VECTOR_TEST_MAIN_H

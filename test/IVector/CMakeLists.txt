@@ -20,5 +20,6 @@ set(VECTOR_TEST_FILES ${VECTOR_TEST_SOURCES} ${VECTOR_TEST_HEADERS})
 
 add_executable(vector-test ${VECTOR_TEST_FILES})
 target_link_libraries(vector-test ${CMAKE_CURRENT_SOURCE_DIR}/../..//bin/Selyankin/libvector.dll.a)
+target_link_libraries(vector-test ${CMAKE_CURRENT_SOURCE_DIR}/../..//bin/Selyankin/libLogger.dll.a)
 
 set_target_properties(vector-test PROPERTIES PREFIX "test-" OUTPUT_NAME "vector")
