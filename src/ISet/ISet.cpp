@@ -192,5 +192,4 @@ ISet::symSub(ISet const *pOperand1, ISet const *pOperand2, IVector::NORM norm, d
     return nullptr;
 } // ISet::symSub
 
-ISet::~ISet()
-= default;
+ISet::~ISet(){}

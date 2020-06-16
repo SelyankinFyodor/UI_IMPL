@@ -174,7 +174,6 @@ namespace{
             v = nullptr;
         }
         _data.clear();
-        _logger->destroyLogger(this);
     } // ISet_Impl::~ISet_Impl
 
     RESULT_CODE ISet_Impl::erase(size_t index) {
@@ -253,7 +252,12 @@ namespace{
         }
 
         for (auto v : _data){
-            clone_set->_data.push_back(v);
+            IVector *clone = v->clone();
+            if (!clone){
+                delete clone_set;
+                return nullptr;
+            }
+            clone_set->_data.push_back(clone);
         }
 
         clone_set->_dim = _dim;
