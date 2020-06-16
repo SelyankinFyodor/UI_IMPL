@@ -21,6 +21,15 @@ IVector * IVector::createVector(size_t dim, double *pData, ILogger *pLogger) {
         return nullptr;
     }
 
+    for (size_t i = 0; i < dim; i++){
+        if (std::isnan(pData[i])){
+            if (pLogger){
+                pLogger->log("In IVector::createVector - one of coordinate is nan", RESULT_CODE::WRONG_ARGUMENT);
+            }
+            return nullptr;
+        }
+    }
+
     auto *data = new (std::nothrow)double[dim];
 
     if(!data){
