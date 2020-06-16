@@ -3,13 +3,14 @@
 #include <iostream>
 #include <fstream>
 #include <ctime>
+#include <set>
 
 #include "ILogger.h"
 
 namespace{
     class ILogger_Impl: public ILogger{
     private:
-        std::vector<void *> _clients;
+        std::set<void *> _clients;
         std::string filename = "implwork.log";
         std::fstream _logfile;
 
@@ -41,11 +42,10 @@ namespace{
                 std::cerr << "could not create logger instance";
                 return nullptr;
             }
-            if (!pClient){
-                std::cerr << "client could be null ptr";
-                return nullptr;
+            if (logger->_clients.find(pClient) != logger->_clients.end()){
+                logger->_clients.insert(pClient);
             }
-            logger->_clients.push_back(pClient);
+            logger->_clients.insert(pClient);
         }
 
         return logger;
@@ -101,15 +101,9 @@ namespace{
             std::cerr << "could not delete nullptr logger";
             return;
         }
-        if(pClient){
-            for (auto i = _clients.begin(); i !=_clients.end(); i++)
-            if (*i == pClient){
-                _clients.erase(i);
-                if (_clients.empty()){
-                    delete logger;
-                    logger = nullptr;
-                }
-            }
+        auto todelete = _clients.find(pClient);
+        if (todelete != _clients.end()){
+            _clients.erase(todelete);
         }
     }// ILogger_Impl::destroyLogger
 
