@@ -5,6 +5,7 @@ project(UI_IMPL)
 include_directories(include)
 
 add_subdirectory(src)
+add_subdirectory(test)
 
 add_executable(main main.cpp include/IVector.h include/ILogger.h include/RC.h)
 link_directories(bin)

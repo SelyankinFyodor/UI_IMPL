@@ -178,26 +178,26 @@ double IVector::mul(IVector const *pOperand1, IVector const *pOperand2, ILogger 
         if (pLogger){
             pLogger->log("In IVector::mull vector - first operand is nullptr", RESULT_CODE::WRONG_ARGUMENT);
         }
-        return 0.0;
+        return NAN;
     }
 
     if (!pOperand2) {
         if (pLogger) {
             pLogger->log("In IVector::mull vector - second operand is nullptr", RESULT_CODE::WRONG_ARGUMENT);
         }
-        return 0.0;
+        return NAN;
     }
 
     if (pOperand1->getDim() != pOperand2->getDim()){
         if (pLogger) {
             pLogger->log("In IVector::mull vector - mismatch of operand size", RESULT_CODE::WRONG_DIM);
         }
-        return 0.0;
+        return NAN;
     }
 
     double result = 0;
     for (size_t i = 0, dim = pOperand1->getDim(); i < dim; i++){
-        result = pOperand1->getCoord(i) * pOperand2->getCoord(i);
+        result += pOperand1->getCoord(i) * pOperand2->getCoord(i);
     }
 
     return result;
