@@ -238,7 +238,7 @@ IVector::equals(IVector const *pOperand1, IVector const *pOperand2, IVector::NOR
         return RESULT_CODE::WRONG_ARGUMENT;
     }
 
-    if (tolerance < 0){
+    if (tolerance < 0 || std::isnan(tolerance)){
         return RESULT_CODE::WRONG_ARGUMENT;
     }
 
