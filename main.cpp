@@ -1,7 +1,3 @@
-//
-// Created by user on 12.06.2020.
-//
-
 #include <IVector.h>
 #include "ISet.h"
 #include <iostream>

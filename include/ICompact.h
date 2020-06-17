@@ -4,6 +4,7 @@
 class IVector;
 #include "ILogger.h"
 #include<stddef.h>
+
 class ICompact
 {
 public:
@@ -15,7 +16,7 @@ public:
 
     /*static operations*/
     static ICompact* intersection(ICompact const* const left, ICompact const* const right, ILogger*logger);
-    
+
     //union
     static ICompact* add(ICompact const* const left, ICompact const* const right, ILogger*logger);
 
@@ -40,7 +41,7 @@ public:
     virtual ICompact* clone() const = 0;
 
     /*dtor*/
-    virtual ~ICompact() = 0;
+    virtual~ICompact() = 0;
 
     class iterator
     {
@@ -59,7 +60,7 @@ public:
     protected:
         iterator() = default;
 
-       
+
     private:
         /*non default copyable*/
         iterator(const iterator& other) = delete;
