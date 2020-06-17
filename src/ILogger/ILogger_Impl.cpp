@@ -14,7 +14,7 @@ namespace{
         std::string filename = "implwork.log";
         std::fstream _logfile;
 
-        static std::string _rcTosting(RESULT_CODE rc);
+        const static char * _rcTosting(RESULT_CODE rc);
     public:
         ILogger_Impl();
 
@@ -73,6 +73,7 @@ namespace{
     } // ILogger_Impl::setLogFile
 
     void ILogger_Impl::log(char const *pMsg, RESULT_CODE err) {
+
         time_t seconds = time(nullptr);
         tm* timeInfo = localtime(&seconds);
         if (!logger){
@@ -107,34 +108,49 @@ namespace{
         }
     }// ILogger_Impl::destroyLogger
 
-    std::string ILogger_Impl::_rcTosting(RESULT_CODE rc) {
+    const char * ILogger_Impl::_rcTosting(RESULT_CODE rc) {
+        char const* code_msg[] = {
+                "SUCCESS",
+                "OUT_OF_MEMORY",
+                "BAD_REFERENCE",
+                "WRONG_DIM",
+                "DIVISION_BY_ZERO",
+                "NAN_VALUE",
+                "FILE_ERROR",
+                "OUT_OF_BOUNDS",
+                "NOT_FOUND",
+                "WRONG_ARGUMENT",
+                "CALCULATION_ERROR",
+                "MULTIPLE_DEFINITION"
+        };
+        size_t msglen = 80;
         switch(rc){
             case RESULT_CODE::SUCCESS:
-                return std::string("SUCCESS");
+                return code_msg[0];
             case RESULT_CODE::OUT_OF_MEMORY:
-                return std::string("OUT_OF_MEMORY");
+                return code_msg[1];
             case RESULT_CODE::BAD_REFERENCE:
-                return std::string("BAD_REFERENCE");
+                return code_msg[2];
             case RESULT_CODE::WRONG_DIM:
-                return std::string("WRONG_DIM");
+                return code_msg[3];
             case RESULT_CODE::DIVISION_BY_ZERO:
-                return std::string("DIVISION_BY_ZERO");
+                return code_msg[4];
             case RESULT_CODE::NAN_VALUE:
-                return std::string("NAN_VALUE");
+                return code_msg[5];
             case RESULT_CODE::FILE_ERROR:
-                return std::string("FILE_ERROR");
+                return code_msg[6];
             case RESULT_CODE::OUT_OF_BOUNDS:
-                return std::string("OUT_OF_BOUNDS");
+                return code_msg[7];
             case RESULT_CODE::NOT_FOUND:
-                return std::string("NOT_FOUND");
+                return code_msg[8];
             case RESULT_CODE::WRONG_ARGUMENT:
-                return std::string("WRONG_ARGUMENT");
+                return code_msg[9];
             case RESULT_CODE::CALCULATION_ERROR:
-                return std::string("CALCULATION_ERROR");
+                return code_msg[10];
             case RESULT_CODE::MULTIPLE_DEFINITION:
-                return std::string("MULTIPLE_DEFINITION");
+                return code_msg[11];
             default:
-                return std::string("");
+                return nullptr;
         }
     } // ILogger_Impl::_rcTosting
 }
