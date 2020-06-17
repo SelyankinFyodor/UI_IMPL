@@ -10,11 +10,6 @@ set(SET_TEST_HEADERS
         )
 set(SET_TEST_SOURCES
         set-test-main.cpp
-        set-test-insert.cpp
-        set-test-get.cpp
-        set-test-clear.cpp
-        set-test-clone.cpp
-        set-test-erase.cpp
         )
 
 set(SET_TEST_FILES ${SET_TEST_SOURCES} ${SET_TEST_HEADERS})

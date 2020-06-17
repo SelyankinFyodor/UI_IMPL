@@ -34,6 +34,13 @@ ISet *ISet::add(ISet const *pOperand1, ISet const *pOperand2, IVector::NORM norm
         return nullptr;
     }
 
+    if (std::isnan(tolerance)){
+        if (pLogger){
+            pLogger->log("In ISet::add - NAN tolerance", RESULT_CODE::WRONG_ARGUMENT);
+        }
+        return nullptr;
+    }
+
     if (!pOperand1->getDim()){
         if (pLogger){
             pLogger->log("In ISet::add - first operand has zero dimension", RESULT_CODE::WRONG_DIM);
@@ -115,7 +122,14 @@ ISet::intersect(ISet const *pOperand1, ISet const *pOperand2, IVector::NORM norm
 
     if (tolerance < 0){
         if (pLogger){
-            pLogger->log("In ISet::intersect - second operand is nullptr", RESULT_CODE::WRONG_ARGUMENT);
+            pLogger->log("In ISet::intersect - negative tolerance", RESULT_CODE::WRONG_ARGUMENT);
+        }
+        return nullptr;
+    }
+
+    if (std::isnan(tolerance)){
+        if (pLogger){
+            pLogger->log("In ISet::intersect - NAN tolerance", RESULT_CODE::WRONG_ARGUMENT);
         }
         return nullptr;
     }

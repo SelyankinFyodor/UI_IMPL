@@ -53,6 +53,10 @@ namespace{
             return RESULT_CODE::WRONG_ARGUMENT;
         }
 
+        if (std::isnan(tolerance)){
+            return RESULT_CODE::WRONG_ARGUMENT;
+        }
+
         if (_data.empty()){
             IVector *clone = pVector->clone();
             if (!clone){
@@ -177,6 +181,9 @@ namespace{
     } // ISet_Impl::~ISet_Impl
 
     RESULT_CODE ISet_Impl::erase(size_t index) {
+        if (std::isnan(index)){
+            return RESULT_CODE::WRONG_ARGUMENT;
+        }
         if (index < 0){
             return RESULT_CODE::OUT_OF_BOUNDS;
         }
@@ -205,12 +212,15 @@ namespace{
             return RESULT_CODE::WRONG_ARGUMENT;
         }
 
+        if (std::isnan(tolerance)){
+            return RESULT_CODE::WRONG_ARGUMENT;
+        }
+
         if (pSample->getDim() != _dim){
             return RESULT_CODE::WRONG_DIM;
         }
 
-
-
+        bool deleted = false;
         for (auto v = _data.begin(); v != _data.end(); ){
             auto diff = IVector::sub(pSample, *v, _logger);
             if (!diff){
@@ -227,6 +237,7 @@ namespace{
                 diff = nullptr;
 
                 delete *v;
+                deleted = true;
                 v = _data.erase(v);
             }
             else {
@@ -242,7 +253,7 @@ namespace{
             _dim = 0;
         }
 
-        return RESULT_CODE::SUCCESS;
+        return deleted ? RESULT_CODE::SUCCESS : RESULT_CODE::NOT_FOUND;
     } // ISet_Impl::erase
 
     ISet *ISet_Impl::clone() const {
