@@ -56,8 +56,7 @@ namespace {
     }
 
     double IVector_Impl::getCoord(size_t index) const {
-
-        return (index >= _dim || !_data) ? 0.0 : _data[index];
+        return (index >= _dim || !_data) ? NAN : _data[index];
     }
 
     RESULT_CODE IVector_Impl::setCoord(size_t index, double value) {
