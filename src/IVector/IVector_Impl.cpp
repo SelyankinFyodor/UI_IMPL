@@ -69,6 +69,10 @@ namespace {
             return RESULT_CODE::OUT_OF_BOUNDS;
         }
 
+        if (std::isnan(value)){
+            return RESULT_CODE::WRONG_ARGUMENT;
+        }
+
         _data[index] = value;
 
         return RESULT_CODE::SUCCESS;

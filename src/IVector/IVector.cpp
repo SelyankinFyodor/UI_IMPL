@@ -166,6 +166,13 @@ IVector *IVector::mul(IVector const *pOperand1, double scaleParam, ILogger *pLog
         return nullptr;
     }
 
+    if (std::isnan(scaleParam)){
+        if (pLogger) {
+            pLogger->log("In IVector::mull scalar - scale param is nan", RESULT_CODE::WRONG_ARGUMENT);
+        }
+        return nullptr;
+    }
+
     for (size_t i = 0; i < dim; i++){
         data[i] = pOperand1->getCoord(i) * scaleParam;
     }
