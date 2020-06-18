@@ -2,9 +2,12 @@
 #define IBROCKER_H
 #include "ILogger.h"
 #include "RC.h"
+#include "ISolver_global.h"
 
-
-class IBrocker
+extern "C" {
+    ISOLVER_EXPORT void* getBrocker();
+}
+class ISOLVER_EXPORT IBrocker
 {
 public:
     enum InterfaceTypes

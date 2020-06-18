@@ -1,0 +1,4 @@
+Thu Jun 18 18:16:13 2020
+|| message:Compact is invalid|| result cod: CALCULATION_ERROR
+Thu Jun 18 18:17:03 2020
+|| message:Cannot load params|| result cod: NOT_FOUND
