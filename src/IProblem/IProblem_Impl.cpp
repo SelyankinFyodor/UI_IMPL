@@ -10,7 +10,6 @@ namespace  {
         size_t _paramsNum;
         IVector *_params;
         ILogger *_logger;
-        static bool isCircleToRect(int cx, int cy, int radius,  int rx, int ry, int width, int height);
         // IProblem interface
     public:
         RESULT_CODE goalFunction(const IVector *args, const IVector *params, double &res) const;
@@ -181,23 +180,6 @@ namespace  {
     IProblem_Impl::~IProblem_Impl(){
         delete _params;
         _logger->destroyLogger(this);
-    }
-
-    bool IProblem_Impl::isCircleToRect(int cx, int cy, int radius, int rx, int ry, int width, int height){
-        int x = cx;
-        int y = cy;
-
-        if(cx < rx)
-            x = rx;
-        else if(cx > (rx + width))
-            x = rx + width;
-
-        if(cy < ry)
-            y = ry;
-        else if(cy > (ry + height))
-            y = ry + height;
-
-        return (((cx - x)*(cx - x) + (cy - y)*(cy - y)) <= (radius * radius));
     }
 
     IProblem_Impl::IProblem_Impl():

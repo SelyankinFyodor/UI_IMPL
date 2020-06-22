@@ -144,9 +144,9 @@ namespace  {
             }
             return RESULT_CODE::BAD_REFERENCE;
         }
-        _problem->setParams(params);
+        RESULT_CODE rc = _problem->setParams(params);
 
-        return RESULT_CODE::SUCCESS;
+        return rc;
     }
 
     RESULT_CODE ISolvec_Impl::setCompact(ICompact *pCompact){
@@ -287,8 +287,8 @@ namespace  {
             return RESULT_CODE::OUT_OF_MEMORY;
         }
         vec = solution_copy;
-        return RESULT_CODE::SUCCESS;
 
+        return RESULT_CODE::SUCCESS;
     }
 
 
@@ -312,7 +312,6 @@ namespace  {
     void IBrocker_Impl::release(){
         delete reinterpret_cast<ISolvec_Impl*>(_solver);
     }
-
 }
 
 void* getBrocker() {

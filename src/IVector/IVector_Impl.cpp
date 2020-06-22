@@ -4,9 +4,7 @@
 #define _EXPORTING
 
 #include <cmath>
-#include <iostream>
 #include <cstring>
-#include <cmath>
 #include <new>
 #include "../../include/IVector.h"
 

@@ -2,7 +2,7 @@
 #define ISOLVER_H
 #include <QString>
 
-#include "../../include/IVector.h"
+#include "IVector.h"
 #include "../../include/IProblem.h"
 #include "ISolver_global.h"
 

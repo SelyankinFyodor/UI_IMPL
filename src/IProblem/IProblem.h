@@ -2,8 +2,8 @@
 #define IPROBLEM_H
 #include "IProblem_global.h"
 
-#include "../../include/IVector.h"
-#include "../../include/ICompact.h"
+#include "IVector.h"
+#include "ICompact.h"
 
 class IPROBLEM_EXPORT IProblem
 {
